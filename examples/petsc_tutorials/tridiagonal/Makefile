@@ -39,7 +39,7 @@ CXXFLAGS +=
 LFLAGS += #-lpetsc -lboost_timer -lpthread -lX11 -lm -lcufft -lcublas -lcudart -lcusparse -lcusolver -lstdc++ -ldl -lmpi -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -ldl
 
 
-# casl p4est
+# OPERA
 OPERA = /home/pouria/Projects/OPERA
 INCPATH += -I$(OPERA)
 
