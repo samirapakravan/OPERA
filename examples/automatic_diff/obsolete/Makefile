@@ -7,10 +7,10 @@ TARGET = executable
 
 
 #boost
-INCPATH += -I/home/pouria/Libraries/boost_1_74_0/boost 
+INCPATH += -I/home/pouria/Libraries/boost_1_74_0/
 LIBS    += -L/home/pouria/Libraries/boost_1_74_0/libs  
 
-
+INCPATH += -I/home/pouria/Libraries/autodiff-master
 
 # p4est
 P4EST_DIR  = /home/pouria/Libraries/P4EST_openmpi
@@ -34,9 +34,9 @@ LINK = @echo linking $@ && mpicxx
 #CXX     = $(MPI_DIR)/mpicxx
 #LINK    = $(MPI_DIR)/mpicxx
 
-CFLAGS += 
-CXXFLAGS += 
-LFLAGS += #-lpetsc -lboost_timer -lpthread -lX11 -lm -lcufft -lcublas -lcudart -lcusparse -lcusolver -lstdc++ -ldl -lmpi -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -ldl
+CFLAGS += -std=c++17
+CXXFLAGS += -std=c++17 
+LFLAGS +=  #-lpetsc -lboost_timer -lpthread -lX11 -lm -lcufft -lcublas -lcudart -lcusparse -lcusolver -lstdc++ -ldl -lmpi -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -ldl
 
 
 # 
@@ -45,14 +45,13 @@ INCPATH += -I$(OPERA)
 
 vpath %.c   $(OPERA)/src
 vpath %.cpp $(OPERA)/src
-vpath %.cpp $(OPERA)/examples/petsc_tutorials/nepper
+vpath %.cpp $(OPERA)/examples/automatic_diff
 
 #
 # ####### Files
 ifeq ($(build),2d)
 SOURCES = \
-	$(OPERA)/examples/petsc_tutorials/nepper/main.cpp \
-	$(OPERA)/src/test.cpp 
+	$(OPERA)/examples/automatic_diff/main_nn.cpp \
 else
 
 HEADERS += 
