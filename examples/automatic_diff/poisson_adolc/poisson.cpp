@@ -82,12 +82,17 @@ int main(int argc, char **argv){
 PetscErrorCode formMatrix(DM da, Mat A){
 	DMDALocalInfo        info;
 	MatStencil           row, col[5];
-	PetscReal            hx, hy, v[5];
+	PetscReal            hx, hy, v[5]; 
+	adouble              ahx, ahy, av[5]; //PetscReal
 	PetscInt             i, j, ncols;
 
 	DMDAGetLocalInfo(da, &info);
 	hx = 1.0/(info.mx-1);
 	hy = 1.0/(info.my-1);
+
+	
+	
+	trace_on(1);
 
 	for(j=info.ys; j<info.ys+info.ym; j++){
 		for(i=info.xs; i<info.xs + info.xm; i++){
@@ -121,9 +126,11 @@ PetscErrorCode formMatrix(DM da, Mat A){
 					v[ncols++] = -hx/hy;
 				}
 			}
+			av[0] <<= v[0]; av[1] <<= v[1]; av[2] <<= v[2]; av[3] <<= v[3]; av[4] <<= v[4];
 			MatSetValuesStencil(A, 1, &row, ncols, col, v, INSERT_VALUES);
 		}
 	}
+	trace_off();
 	MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY);
 	MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY);
 	return 0;
